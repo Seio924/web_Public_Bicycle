@@ -44,6 +44,12 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+body{
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+	background-color: ${(props) => props.theme.bgColor};
+	color: ${(props) => props.theme.textColor};
+}
 `;
 
 export default GlobalStyle;
