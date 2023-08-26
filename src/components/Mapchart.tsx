@@ -10,9 +10,8 @@ import {
 } from "react-simple-maps";
 
 // 서울 전체 지도 데이터
-import SeoulMap from "./seoul.json";
-import { locationNameAppearState, locationNameState } from "./atoms";
-import { styled } from "styled-components";
+import SeoulMap from "../seoul.json";
+import { locationNameAppearState, locationNameState } from "../atoms";
 /*
   "code": "구역 코드",
   "name": "구역 이름",

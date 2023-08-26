@@ -1,10 +1,10 @@
-import MapChart from "./Mapchart";
 import { useRecoilValue } from "recoil";
-import { locationNameAppearState, locationNameState } from "./atoms";
+import { locationNameAppearState, locationNameState } from "../atoms";
 
 import ReactTooltip from "react-tooltip";
 import { styled } from "styled-components";
-import Title from "./Title";
+import Title from "../components/Title";
+import MapChart from "../components/Mapchart";
 
 const Container = styled.div`
   display: flex;
