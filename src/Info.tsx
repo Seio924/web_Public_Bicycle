@@ -1,7 +1,10 @@
+import { useParams } from "react-router";
+
 function Info() {
+  const { locationName } = useParams();
   return (
     <>
-      <h1>hi</h1>
+      <h1>{locationName}</h1>
     </>
   );
 }

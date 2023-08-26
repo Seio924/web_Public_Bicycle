@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   ComposableMap,
   Geographies,
@@ -35,6 +35,12 @@ const MapChart = () => {
   const [map, setMap] = useState(SeoulMap);
   // 지도 중심 좌표
   const [center, setCenter] = useState(DEFAULT_COORDINATION);
+
+  const navigate = useNavigate();
+
+  const navigateToInfo = () => {
+    navigate(`/${locationName}`);
+  };
 
   return (
     <div className="map">
@@ -88,11 +94,7 @@ const MapChart = () => {
                       setLocationNameAppear(false);
                     }}
                     onClick={() => {
-                      <Link
-                        to={{
-                          pathname: `/${locationName}`,
-                        }}
-                      ></Link>;
+                      navigateToInfo();
                     }}
                   />
                 );

@@ -1,18 +1,15 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Info from "./Info";
 
 function Router() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/:locationName">
-          <Info />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/:locationName" element={<Info />} />
+
+        <Route path="/" element={<Home />} />
+      </Routes>
     </BrowserRouter>
   );
 }
