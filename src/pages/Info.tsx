@@ -5,6 +5,7 @@ import { fetchInfo } from "../api";
 import { useSetRecoilState } from "recoil";
 import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
+import { locationNameAppearState } from "../atoms";
 
 const H1 = styled.h1`
   margin: 40px 0 20px 0;
@@ -37,38 +38,44 @@ interface Ibicycle {
   RNUM: string;
 }
 
-function HandleCard(id: string) {
-  const navigate = useNavigate();
-  navigate(`/${id}`);
-}
-
 function Info() {
+  const navigate = useNavigate();
+
   const { isLoading, data } = useQuery("bicycleInfo", fetchInfo, {
     refetchOnWindowFocus: false,
   });
+
   const { locationName } = useParams();
+
+  const setLocationNameAppear = useSetRecoilState(locationNameAppearState);
+
   const bicycleInfoList = data?.stationInfo.row;
 
-  console.log(typeof locationName);
   const bicycleInfo = bicycleInfoList?.filter(
     (loc: Ibicycle) => loc.STA_LOC === locationName
   );
-  console.log(bicycleInfo);
+
+  const handleCard = (id: string) => {
+    navigate(`/${locationName}/${id}`);
+  };
+
+  setLocationNameAppear(false);
 
   return (
     <>
       <H1>{locationName}</H1>
       <CardDiv>
-        {bicycleInfo &&
-          bicycleInfo.map((info: Ibicycle) => (
-            <Card
-              onClick={HandleCard}
-              id={info.RENT_ID}
-              locationName={locationName}
-              title={info.STA_ADD1}
-              subtitle={info.RENT_NM}
-            />
-          ))}
+        {!bicycleInfo
+          ? "Loading"
+          : bicycleInfo.map((info: Ibicycle) => (
+              <Card
+                onClick={() => handleCard(info.RENT_ID)}
+                id={info.RENT_ID}
+                locationName={locationName}
+                title={info.STA_ADD1}
+                subtitle={info.RENT_NM}
+              />
+            ))}
       </CardDiv>
     </>
   );

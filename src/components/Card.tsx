@@ -40,7 +40,7 @@ const CardSubtitle = styled(CardLocationName)`
 `;
 
 interface IProps {
-  onClick?: any;
+  onClick?: (id: string) => void;
   id?: string;
   locationName?: string;
   title?: string;
@@ -49,7 +49,7 @@ interface IProps {
 
 function Card({ onClick, id, locationName, title, subtitle }: IProps) {
   return (
-    <CardBackground onClick={onClick(id)}>
+    <CardBackground onClick={() => onClick && onClick(id || "")}>
       <CardLocationName>{locationName}</CardLocationName>
       <CardImg src="https://img.freepik.com/premium-vector/young-boy-riding-a-bicycle-illustration_1302-23620.jpg" />
       <CardTitleContiner>
