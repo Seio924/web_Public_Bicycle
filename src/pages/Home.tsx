@@ -4,7 +4,7 @@ import {
   locationNameState,
   bicycleInfoState,
 } from "../atoms";
-
+import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { fetchInfo } from "../api";
 import ReactTooltip from "react-tooltip";
@@ -43,8 +43,11 @@ function Home() {
   const { isLoading, data } = useQuery("bicycleInfo", fetchInfo, {
     refetchOnWindowFocus: false,
   });
-
-  setBicycleInfo(data?.stationInfo.row);
+  useEffect(() => {
+    if (!isLoading && data) {
+      setBicycleInfo(data?.stationInfo.row);
+    }
+  }, [isLoading, data, setBicycleInfo]);
   return (
     <>
       {appear && <ReactTooltip>{locationName}</ReactTooltip>}

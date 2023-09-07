@@ -7,6 +7,8 @@ import {
   Ibicycle,
   bicycleInfoSelector,
   locationNameState,
+  bicycleIdState,
+  localBicycleInfoState,
 } from "../atoms";
 
 const H1 = styled.h1`
@@ -27,13 +29,20 @@ const CardDiv = styled.div`
 function Info() {
   const navigate = useNavigate();
 
+  const setBicycleId = useSetRecoilState(bicycleIdState);
+
   const locationName = useRecoilValue(locationNameState);
 
   const setLocationNameAppear = useSetRecoilState(locationNameAppearState);
 
   const bicycleInfo = useRecoilValue(bicycleInfoSelector);
 
+  const setLocalBicycleInfoState = useSetRecoilState(localBicycleInfoState);
+
+  setLocalBicycleInfoState(bicycleInfo);
+
   const handleCard = (id: string) => {
+    setBicycleId(id);
     navigate(`/${locationName}/${id}`);
   };
 
