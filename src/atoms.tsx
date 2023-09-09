@@ -16,11 +16,6 @@ export interface Ibicycle {
   RNUM: string;
 }
 
-export const bicycleIdState = atom({
-  key: "bicycleId",
-  default: "",
-});
-
 export const locationNameState = atom({
   key: "locationName",
   default: "",
@@ -48,19 +43,6 @@ export const bicycleInfoSelector = selector({
     const locationN = get(locationNameState);
     const result = bicycleInfos?.filter(
       (loc: Ibicycle) => loc.STA_LOC === locationN
-    );
-
-    return result;
-  },
-});
-
-export const localBicycleInfoSelector = selector({
-  key: "localBicycleInfoSelector",
-  get: ({ get }) => {
-    const bicycleInfo = get(localBicycleInfoState);
-    const bicycleId: string = get(bicycleIdState);
-    const result = bicycleInfo?.filter(
-      (loc: Ibicycle) => loc.RENT_ID === bicycleId
     );
 
     return result;

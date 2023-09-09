@@ -7,9 +7,7 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/:locationName" element={<Info />} />
-        <Route path="/:id" element={<Detail />} />
-        <Route />
+        <Route path="/:locationName/*" element={<Info />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
