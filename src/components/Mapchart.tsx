@@ -38,7 +38,7 @@ const MapChart = () => {
   const navigate = useNavigate();
 
   const navigateToInfo = () => {
-    navigate(`/${locationName}`);
+    navigate(`/Info/${locationName}`);
   };
 
   return (

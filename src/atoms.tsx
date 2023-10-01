@@ -1,4 +1,4 @@
-import { atom, selector, useSetRecoilState } from "recoil";
+import { atom } from "recoil";
 
 export interface Ibicycle {
   STA_LOC: string;
@@ -26,25 +26,7 @@ export const locationNameAppearState = atom({
   default: false,
 });
 
-export const bicycleInfoState = atom<Ibicycle[]>({
-  key: "bicycleInfo",
-  default: [],
-});
-
-export const localBicycleInfoState = atom<Ibicycle[]>({
+export const localBicycleInfo = atom<Ibicycle[]>({
   key: "localBicycleInfo",
   default: [],
-});
-
-export const bicycleInfoSelector = selector({
-  key: "bicycleInfoSelector",
-  get: ({ get }) => {
-    const bicycleInfos = get(bicycleInfoState);
-    const locationN = get(locationNameState);
-    const result = bicycleInfos?.filter(
-      (loc: Ibicycle) => loc.STA_LOC === locationN
-    );
-
-    return result;
-  },
 });

@@ -1,23 +1,30 @@
-import Card from "../components/Card";
-import { useRecoilValue } from "recoil";
-import { localBicycleInfoState, Ibicycle } from "../atoms";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { localBicycleInfo, Ibicycle } from "../atoms";
+import Card from "../components/Card";
+import styled from "styled-components";
 
 function Detail() {
   const { id } = useParams();
-  const info = useRecoilValue(localBicycleInfoState);
-  const [detailInfo, setDetailInfo] = useState<Ibicycle[]>([]);
 
-  useEffect(() => {
-    setDetailInfo(info?.filter((loc: Ibicycle) => loc.RENT_ID === id));
-  }, [id]);
+  const localBicycleInfoState = useRecoilValue(localBicycleInfo);
 
-  console.log(detailInfo);
+  const detailInfo = localBicycleInfoState?.filter(
+    (loc: Ibicycle) => loc.RENT_ID === id
+  );
 
   return (
     <>
-      <Card />
+      <Card
+        id={detailInfo[0].RENT_ID}
+        locationName={detailInfo[0].STA_LOC}
+        title={detailInfo[0].STA_ADD1}
+        subtitle={detailInfo[0].RENT_NM}
+        backgroundWidth="500px"
+        backgroundHeight="550px"
+        backgroundMargin="100px"
+        fontSize="20px"
+      />
     </>
   );
 }

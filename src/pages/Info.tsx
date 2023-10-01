@@ -1,16 +1,11 @@
+import { useParams } from "react-router";
 import { styled } from "styled-components";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useQuery } from "react-query";
+import { fetchInfo } from "../api";
+import { useSetRecoilState } from "recoil";
 import Card from "../components/Card";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import {
-  locationNameAppearState,
-  Ibicycle,
-  bicycleInfoSelector,
-  locationNameState,
-  localBicycleInfoState,
-} from "../atoms";
-import { useEffect } from "react";
-import Detail from "./Detail";
+import { useNavigate } from "react-router-dom";
+import { locationNameAppearState, Ibicycle, localBicycleInfo } from "../atoms";
 
 const H1 = styled.h1`
   margin: 40px 0 20px 0;
@@ -30,40 +25,47 @@ const CardDiv = styled.div`
 function Info() {
   const navigate = useNavigate();
 
-  const locationName = useRecoilValue(locationNameState);
+  const { isLoading, data } = useQuery("bicycleInfo", fetchInfo, {
+    refetchOnWindowFocus: false,
+  });
+
+  const { locationName } = useParams();
+
+  const setLocalBicycleInfo = useSetRecoilState(localBicycleInfo);
 
   const setLocationNameAppear = useSetRecoilState(locationNameAppearState);
 
-  const bicycleInfo = useRecoilValue(bicycleInfoSelector);
+  const bicycleInfoList = data?.stationInfo.row;
 
-  const setLocalBicycleInfoState = useSetRecoilState(localBicycleInfoState);
+  const bicycleInfo = bicycleInfoList?.filter(
+    (loc: Ibicycle) => loc.STA_LOC === locationName
+  );
 
-  useEffect(() => {
-    setLocalBicycleInfoState(bicycleInfo);
-    setLocationNameAppear(false);
-  }, [bicycleInfo]);
+  setLocalBicycleInfo(bicycleInfo);
 
   const handleCard = (id: string) => {
-    navigate(`/${locationName}/${id}`);
+    navigate(`/Detail/${id}`);
   };
+
+  setLocationNameAppear(false);
 
   return (
     <>
       <H1>{locationName}</H1>
-      <Routes>
-        <Route path=":id" element={<Detail />} />
-      </Routes>
       <CardDiv>
         {!bicycleInfo
           ? "Loading"
           : bicycleInfo.map((info: Ibicycle) => (
               <Card
-                key={info.RENT_ID}
                 onClick={() => handleCard(info.RENT_ID)}
                 id={info.RENT_ID}
                 locationName={locationName}
                 title={info.STA_ADD1}
                 subtitle={info.RENT_NM}
+                backgroundWidth="200px"
+                backgroundHeight="300px"
+                backgroundMargin="20px"
+                fontSize="16px"
               />
             ))}
       </CardDiv>

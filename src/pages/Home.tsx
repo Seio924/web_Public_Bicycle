@@ -1,12 +1,6 @@
-import { useRecoilValue, useRecoilState } from "recoil";
-import {
-  locationNameAppearState,
-  locationNameState,
-  bicycleInfoState,
-} from "../atoms";
-import { useEffect } from "react";
-import { useQuery } from "react-query";
-import { fetchInfo } from "../api";
+import { useRecoilValue } from "recoil";
+import { locationNameAppearState, locationNameState } from "../atoms";
+
 import ReactTooltip from "react-tooltip";
 import { styled } from "styled-components";
 import Title from "../components/Title";
@@ -38,16 +32,6 @@ const TitleDiv = styled.div`
 function Home() {
   const locationName = useRecoilValue(locationNameState);
   const appear = useRecoilValue(locationNameAppearState);
-  const [bicycleInfo, setBicycleInfo] = useRecoilState(bicycleInfoState);
-
-  const { isLoading, data } = useQuery("bicycleInfo", fetchInfo, {
-    refetchOnWindowFocus: false,
-  });
-  useEffect(() => {
-    if (!isLoading && data) {
-      setBicycleInfo(data?.stationInfo.row);
-    }
-  }, [isLoading, data, setBicycleInfo]);
   return (
     <>
       {appear && <ReactTooltip>{locationName}</ReactTooltip>}
