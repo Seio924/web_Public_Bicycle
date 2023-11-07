@@ -6,3 +6,10 @@ export const lightTheme: DefaultTheme = {
   outlineColor: "#102C57",
   textColor: "#102C57",
 };
+
+export const darkTheme: DefaultTheme = {
+  bgColor: "#102C57",
+  accentColor: "#EA5455",
+  outlineColor: "#102C57",
+  textColor: "#fff",
+};

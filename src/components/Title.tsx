@@ -17,7 +17,7 @@ const BigTitle = styled.p`
   font-weight: 1000;
 `;
 
-const SmallTitle = styled(BigTitle)`
+const SmallTitle = styled.p`
   font-size: 16px;
   font-weight: 200;
   line-height: 23px;

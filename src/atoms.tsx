@@ -16,6 +16,11 @@ export interface Ibicycle {
   RNUM: string;
 }
 
+export const themeState = atom({
+  key: "themeState",
+  default: true,
+});
+
 export const locationNameState = atom({
   key: "locationName",
   default: "",

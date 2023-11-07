@@ -1,4 +1,6 @@
+import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { themeState } from "../atoms";
 
 const MoreContainer = styled.div``;
 
@@ -14,9 +16,15 @@ const Btn = styled.button`
 `;
 
 function More() {
+  const [theme, setThemeState] = useRecoilState(themeState);
+
+  const toggle = () => {
+    setThemeState(!theme);
+  };
+
   return (
     <MoreContainer>
-      <Btn>More Information</Btn>
+      <Btn onClick={toggle}>mode change</Btn>
     </MoreContainer>
   );
 }
